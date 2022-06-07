@@ -15,19 +15,21 @@ export const mySlice = createSlice( {
     name: 'my',
     initialState,
     reducers: {
-        start: (state) => {
-            state.status = 'inProgress';
-        },
-        end: (state) => {
-            state.status = 'Done';
-        },
-        reset: (state) => {
-            state.status = 'Prepairing';
+        changeStatus(state, action){
+            switch(action.type){
+                case 'START': 
+                    state.status = 'inProgress';
+                    break;
+                case 'END': 
+                    state.status = 'Done';
+                    break;
+                default:
+                    state.status = 'Prepairing';
+                    break;
+            }
         }
     }
 } )
-
-export const { start, end, reset } = mySlice.actions;
 
 export const select = (state: RootState) => state.myReducer.status;
 
