@@ -10,18 +10,18 @@ export function* checkStatus() {
 const delay = (ms: number) => new Promise(res => setTimeout(res, ms))
 
 export function* startAsync() {
+    console.log('Saga: START');
     yield put({type: 'START'});
-    console.log('START ASYNC');
 }
 
 export function* endAsync() {
+    console.log('Saga: END');
     yield put({type: 'END'});
-    console.log('END ASYNC');
 }
 
 export function* resetAsync() {
+    console.log('Saga: RESET');
     yield put({type: 'RESET'});
-    console.log('RESET ASYNC');
 }
 
 export function* watchAllAsync() {

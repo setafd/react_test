@@ -12,9 +12,9 @@ const initialState: MyState = {
 }
 
 const actions = {
-    startAction: createAction('START_ASYNC'),
-    endACtion: createAction('END_ASYNC'),
-    resetAction: createAction('RESET_ASYNC')
+    startAction: createAction('START'),
+    endACtion: createAction('END'),
+    resetAction: createAction('RESET')
 }
 
 export const myReducer = createReducer( initialState, (builder) =>{
