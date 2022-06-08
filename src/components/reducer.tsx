@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAction, createReducer, createSlice } from '@reduxjs/toolkit';
 import { RootState } from './store';
 
 export interface MyState{
@@ -11,26 +11,24 @@ const initialState: MyState = {
     status: "Prepairing"
 }
 
-export const mySlice = createSlice( {
-    name: 'my',
-    initialState,
-    reducers: {
-        changeStatus(state, action){
-            switch(action.type){
-                case 'START': 
-                    state.status = 'inProgress';
-                    break;
-                case 'END': 
-                    state.status = 'Done';
-                    break;
-                default:
-                    state.status = 'Prepairing';
-                    break;
-            }
-        }
-    }
-} )
+const actions = {
+    startAction: createAction('START_ASYNC'),
+    endACtion: createAction('END_ASYNC'),
+    resetAction: createAction('RESET_ASYNC')
+}
+
+export const myReducer = createReducer( initialState, (builder) =>{
+    builder
+        .addCase(actions.startAction, (state, action) => {
+            state.status = 'inProgress'
+        })
+        .addCase(actions.endACtion, (state, action) => {
+            state.status = 'Done'
+        })
+        .addCase(actions.resetAction, (state, action) => {
+            state.status = 'Prepairing'
+        })
+})
+
 
 export const select = (state: RootState) => state.myReducer.status;
-
-export default mySlice.reducer;
