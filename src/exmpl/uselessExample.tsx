@@ -1,23 +1,26 @@
 import React, { useState } from 'react';
+import { useAppSelector } from '../components/hooks';
+import { select } from '../components/reducer';
+import { action } from './saga';
 
-import { useAppSelector, useAppDispatch } from '../components/hooks';
-
-import { start, end, reset, select } from '../components/reducer'
 
 export function Example() {
     const value = useAppSelector(select);
-    const dispatch = useAppDispatch();
+
+    const onStart = () => action('START_ASYNC');
+    const onEnd   = () => action('END_ASYNC');
+    const onReset = () => action('RESET_ASYNC'); 
 
     return(
         <div>
             <span>{value}</span>
-            <button onClick={() => dispatch(start())}>
+            <button onClick={onStart}>
                 start
             </button>
-            <button onClick={() => dispatch(end())}>
+            <button onClick={onEnd}>
                 end
             </button>
-            <button onClick={() => dispatch(reset())}>
+            <button onClick={onReset}>
                 reset
             </button>
         </div>
