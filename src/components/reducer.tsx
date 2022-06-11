@@ -1,34 +1,33 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { RootState } from './store';
+import { createAction, createReducer } from '@reduxjs/toolkit';
+import { RootState } from '../stores/statusStore';
 
 export interface MyState{
-    value: number;
-    status: 'Prepairing' | 'inProgress' | 'Done';
+  value: number;
+  status: 'Prepairing' | 'inProgress' | 'Done';
 }
 
 const initialState: MyState = {
-    value: 0, 
-    status: "Prepairing"
-}
+  value: 0,
+  status: 'Prepairing'
+};
 
-export const mySlice = createSlice( {
-    name: 'my',
-    initialState,
-    reducers: {
-        start: (state) => {
-            state.status = 'inProgress';
-        },
-        end: (state) => {
-            state.status = 'Done';
-        },
-        reset: (state) => {
-            state.status = 'Prepairing';
-        }
-    }
-} )
+const actions = {
+  startAction: createAction('START'),
+  endACtion: createAction('END'),
+  resetAction: createAction('RESET'),
+};
 
-export const { start, end, reset } = mySlice.actions;
+export const myReducer = createReducer(initialState, (builder) => {
+  builder
+    .addCase(actions.startAction, (state, action) => {
+      state.status = 'inProgress';
+    })
+    .addCase(actions.endACtion, (state, action) => {
+      state.status = 'Done';
+    })
+    .addCase(actions.resetAction, (state, action) => {
+      state.status = 'Prepairing';
+    });
+});
 
 export const select = (state: RootState) => state.myReducer.status;
-
-export default mySlice.reducer;
